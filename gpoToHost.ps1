@@ -23,7 +23,7 @@ Import-Module ActiveDirectory
 $SomPath = $FullGPOxml.GPO.LinksTo.SOMPath
 
 # Print out hosts that fall within the SOM Path
-"GPP #$GpoGuid is applied to the following hosts:"
+"GPO GUID: $GpoGuid is applied to the following hosts:"
 Get-ADComputer -Filter * -Properties CanonicalName,DNSHostName | Where-Object {$_.CanonicalName -like "$SomPath*"} | select DNSHostName
 
 # Script can take up to a minute to fully run due to creating a full report, string searching through it, 
