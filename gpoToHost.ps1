@@ -26,5 +26,6 @@ $SomPath = $FullGPOxml.GPO.LinksTo.SOMPath
 "GPP #$GpoGuid is applied to the following hosts:"
 Get-ADComputer -Filter * -Properties CanonicalName,DNSHostName | Where-Object {$_.CanonicalName -like "$SomPath*"} | select DNSHostName
 
-# Script can take up to a minute to fully run due to creating a full report and then string searching through it.
+# Script can take up to a minute to fully run due to creating a full report, string searching through it, 
+# and pulling down every host on the AD to search each description.
 # Lesson: I need to learn LDAP queries and query info directly, instead of gathering everything and parsing.
