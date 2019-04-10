@@ -19,6 +19,7 @@ Import-Module ActiveDirectory
 # Generate report in xml for string search.
 # Then pull out the Scope of Management (SOM) Path for the GPO
 # Note: String searching is slow. But I understand it logically.
+# Also Note: Might not work for GPOs that have more than one SOM Path.
 [xml]$FullGPOxml = Get-GPOreport -guid $GpoGuid -ReportType xml
 $SomPath = $FullGPOxml.GPO.LinksTo.SOMPath
 
