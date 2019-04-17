@@ -29,7 +29,7 @@ Flags:
   -h	Help text and usage example.
 
 usage:	 gPOtoHost.sh -d <domain> -u <username> -p <password> -g <gpo guid> -c <domain controller>
-example: gPOtoHost.sh -d ACME -u zerocool -p hunter2 -g 01234567-CAFE-DEAD-BEEF-89ABCDEF0123 -c 10.10.10.257
+example: gPOtoHost.sh -d GIBSON -u zerocool -p hunter2 -g 01234567-CAFE-DEAD-BEEF-89ABCDEF0123 -c 10.10.10.257
 "
 
 # Check if any flags were set. If not, print out help.
