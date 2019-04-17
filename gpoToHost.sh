@@ -3,6 +3,7 @@
 ################################################################
 #                                                              #
 # Script to match a known GPO GUID to a list of hosts.         #
+# Uses ldapsearch from ldap-utils.                             #
 #                                                              #
 # Don't use this script. It'll probably blow up everything.    #
 #                                                              #
