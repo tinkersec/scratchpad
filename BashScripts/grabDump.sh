@@ -1,27 +1,26 @@
 #!/usr/bin/env bash
 
-##################################################################
-#                                                                #
-# Script to push procdump to host, dump LSASS, and               #
-# retrieve dump in order to process with mimikatz locally.       #
-#                                                                #
-# Don't use this script. It'll probably DoS everything.          #
-#                                                                #
-# Requirements: smbclient, Impacket's wmiexec.py, procdump64.exe #
-#                                                                #
-# Notes:                                                         #
-#        - Hardcode location of smbclient and Impacket's         #
-#          wmiexec.py                                            #
-#        - Create a target list of valid hosts, separated by     #
-#          newline. (Can create with "nmap -p 445" and parsing   #
-#          out the host ip addresses)                            #
-#        - PoC only set up for 64 bit. You're welcome to change  #
-#          the wmic flags if you're hitting a 32bit system.      #
-#        - PoC assumes share is C$. Change if you like.          #
-#                                                                #
-# Written by Tinker. For Demonstration Purposes Only.            #
-#                                                                #
-##################################################################
+###################################################################
+#                                                                 #
+# Script to push procdump to host, dump LSASS, and                #
+# retrieve dump in order to process with mimikatz locally.        #
+#                                                                 #
+# Don't use this script. It'll probably DoS everything.           #
+#                                                                 #
+# Requirements: smbclient, Impacket's wmiexec.py, procdump64.exe  #
+#                                                                 #
+# Notes:                                                          #
+#        - Hardcode location of smbclient, procdump, & wmiexec.py #
+#        - Create a target list of valid hosts, separated by      #
+#          newline. (Can create with "nmap -p 445" and parsing    #
+#          out the host ip addresses)                             #
+#        - PoC only set up for 64 bit. You're welcome to change   #
+#          the wmic flags if you're hitting a 32bit system.       #
+#        - PoC assumes share is C$. Change if you like.           #
+#                                                                 #
+# Written by Tinker. For Demonstration Purposes Only.             #
+#                                                                 #
+###################################################################
 
 # Script assumes both smbclient and Impacket's wmiexec.py is in your PATH or in the current working directory.
 # Script assumes that procdump64.exe is in your current working directory.
@@ -67,7 +66,7 @@ do
 			;;
 		f)
 			if [ ! -f $OPTARG ]; then
-				echo "File not found: $1"
+				echo "File not found: $OPTARG"
 				exit 1
 			else
 				HOSTFILE=$OPTARG
