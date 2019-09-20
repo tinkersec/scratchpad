@@ -8,7 +8,7 @@
 # Don't use this script. It'll probably DoS everything.           #
 #                                                                 #
 # Requirements: smbclient, Impacket's wmiexec.py, procdump64.exe  #
-#                                                                 #
+# crackmapexec, procdump.exe                                      #
 # Notes:                                                          #
 #        - Hardcode location of smbclient, procdump, & wmiexec.py #
 #        - Create a target list of valid hosts, separated by      #
@@ -20,7 +20,7 @@
 #                                                                 #
 # Written by Tinker. For Demonstration Purposes Only.             #
 #                                                                 #
-# Modified by Paragonsec							  			  #
+# Modified by Paragonsec										  #
 #																  #
 ###################################################################
 
