@@ -20,8 +20,8 @@
 #                                                                 #
 # Written by Tinker. For Demonstration Purposes Only.             #
 #                                                                 #
-# Modified by Paragonsec										  #
-#																  #
+# Modified by Paragonsec					  #
+#								  #
 ###################################################################
 
 # Script assumes both smbclient and Impacket's wmiexec.py is in your PATH or in the current working directory.
