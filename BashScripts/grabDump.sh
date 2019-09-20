@@ -16,8 +16,8 @@
 #          out the host ip addresses)                             #
 #        - PoC only set up for 64 bit. You're welcome to change   #
 #          the wmic flags if you're hitting a 32bit system.       #
-#        - PoC assumes share is C$. Change if you like.		   #
-#		  - Supports PTH           								   #
+#        - PoC assumes share is C$. Change if you like.		  #
+#	 - Supports PTH           				  #
 #                                                                 #
 # Written by Tinker. For Demonstration Purposes Only.             #
 #                                                                 #
