@@ -3,7 +3,8 @@
 ################################################################
 #                                                              #
 # Script to create an LDIF of Active Directory via LDAP.       #
-# Fields are on single lines allowing for easier grepping.     #
+# Fields are on single lines with object numbering to allow    #
+# for easier grepping.                                         #
 #                                                              #
 # Uses ldapsearch from ldap-utils.                             #
 #                                                              #
@@ -16,6 +17,7 @@
 
 USAGE="
 Bash script to dump Active Directory via LDAP.
+Dont use this script. Will probably blow up everything
 
 Flags:
   -u	Username to authenticate to domain controller.
@@ -86,9 +88,35 @@ fi
 # Set Base DN
 BASEDN=$(ldapsearch -LL -o ldif-wrap=no -H ldap://$DCIP -x -s base | grep defaultNamingContext | cut -d":" -f2 | sed -e 's/^[ \t]*//' )
 
+# Set and initialize LINECOUNT and LINESTRING
+declare -i LINECOUNT=0
+LINESTRING=$(printf "%08d" $LINECOUNT)
+
 # Dump Active Directory via LDAP. Print each field on one line.
 if [ -z ${OUTPUT+x} ]; then
-ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN"
+	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN" |
+	while IFS= read -r LDIFLINE
+	do
+		if [ -z "$LDIFLINE" ]
+		then
+			LINECOUNT+=1
+			LINESTRING=$(printf "%08d" $LINECOUNT)
+			echo $LDIFLINE
+		else
+			echo "{$LINESTRING} "$LDIFLINE
+		fi
+	done
 else
-ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN" | tee $OUTPUT
+	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN" |
+	while IFS= read -r LDIFLINE
+	do
+		if [ -z "$LDIFLINE" ]
+		then
+			LINECOUNT+=1
+			LINESTRING=$(printf "%08d" $LINECOUNT)
+			echo $LDIFLINE
+		else
+			echo "{$LINESTRING} "$LDIFLINE
+		fi
+	done | tee $OUTPUT
 fi
