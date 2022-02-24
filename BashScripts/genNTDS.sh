@@ -18,7 +18,7 @@ For Demonstrational Purposes Only.
 
 Flags:
   -d	Domain for example. Defaults to: ACME.domain
-  -w	Wordlist to be used as a sample passwords.
+  -w	Wordlist to be used as for sample passwords, separated by newline.
   -c	Number of hashes in NTDS.dit sample. Defaults: 1000
   -o	Output filename.
   -h	Help text and usage example.
