@@ -8,6 +8,7 @@
 # Requires program 'mkpasswd'                                  #
 #                                                              #
 # Written by Tinker. For Demonstration Purposes Only.          #
+# Made for Sean because Bex asked me to.                       #
 #                                                              #
 ################################################################
 
