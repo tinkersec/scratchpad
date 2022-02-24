@@ -43,7 +43,6 @@ do
 	case $FLAG in
 		d)
 			DOMAIN=$OPTARG
-
 			;;
 		c)
 			LINEDEPTH=$OPTARG
