@@ -74,6 +74,7 @@ elif [ -z ${OUTPUT+x} ]; then
 	exit
 fi
 
+# Set defaults.
 if [ -z ${LINEDEPTH+x} ]; then
 	LINEDEPTH="1000"
 fi
@@ -82,10 +83,10 @@ if [ -z ${DOMAIN+x} ]; then
 	DOMAIN="ACME.domain"
 fi
 
-# Set and initialize NUM for chronological username schema
+# Set and initialize NUM for chronological username schema.
 declare -i NUM=1000
 
-# Generate example NTDS.dit
+# Generate example NTDS.dit.
 shuf $WORDLIST | head -n $LINEDEPTH | while read PASS; 
 do 
 	echo $DOMAIN\\user$NUM:$NUM:aad3b435b51404eeaad3b435b51404ee:$(mkpasswd -m nt $PASS | cut -d"$" -f 4):::
