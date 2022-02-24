@@ -5,6 +5,8 @@
 # Script to create an example NTDS.dit file.                   #
 # Good for hash cracking demonstrations.                       #
 #                                                              #
+# Requires program 'mkpasswd'                                  #
+#                                                              #
 # Written by Tinker. For Demonstration Purposes Only.          #
 #                                                              #
 ################################################################
