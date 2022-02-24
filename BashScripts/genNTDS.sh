@@ -7,6 +7,9 @@
 #                                                              #
 # Requires program 'mkpasswd'                                  #
 #                                                              #
+# Crack output with john-the-ripper:                           #
+# ~$ john --format=NT --wordlist=rockyou.txt NTDS-example.dit  #
+#                                                              #
 # Written by Tinker. For Demonstration Purposes Only.          #
 # Made for Sean because Bex asked me to.                       #
 #                                                              #
