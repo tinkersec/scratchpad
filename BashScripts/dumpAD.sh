@@ -94,7 +94,7 @@ LINESTRING=$(printf "%08d" $LINECOUNT)
 
 # Dump Active Directory via LDAP. Print each field on one line.
 if [ -z ${OUTPUT+x} ]; then
-	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN" |
+	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w "$PASSWORD" -b "$BASEDN" |
 	while IFS= read -r LDIFLINE
 	do
 		if [ -z "$LDIFLINE" ]
@@ -107,7 +107,7 @@ if [ -z ${OUTPUT+x} ]; then
 		fi
 	done
 else
-	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w $PASSWORD -b "$BASEDN" |
+	stdbuf -oL ldapsearch -E pr=1000/noprompt -LL -o ldif-wrap=no -H ldap://$DCIP -x -D "$USERNAME@$DOMAIN" -w "$PASSWORD" -b "$BASEDN" |
 	while IFS= read -r LDIFLINE
 	do
 		if [ -z "$LDIFLINE" ]
